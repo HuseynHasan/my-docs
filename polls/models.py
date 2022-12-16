@@ -8,6 +8,10 @@ class Question(models.Model):
     question = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 
+    def was_published_recently(self):
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
+
     def __str__(self) -> str:
         return self.question
 
@@ -19,3 +23,4 @@ class Choice(models.Model):
 
     def __str__(self) -> str:
         return self.choice_text
+
